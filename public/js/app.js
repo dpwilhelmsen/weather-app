@@ -1123,7 +1123,9 @@ module.exports = function bind(fn, thisArg) {
             zipcode: zipcode
         }).then(function (response) {
             context.error = false;
-            _this.userWeather = response.data;
+            context.success = true;
+            context.zipcode = null;
+            _this.getUserWeather({ error: false });
         }, function (response) {
             context.error = true;
         });
@@ -1132,7 +1134,6 @@ module.exports = function bind(fn, thisArg) {
         var _this2 = this;
 
         __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.get('api/weather').then(function (response) {
-            context.error = false;
             _this2.userWeather = response.body.data;
         }, function (response) {
             context.error = true;

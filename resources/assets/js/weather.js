@@ -11,7 +11,9 @@ export default {
             }
         ).then(response => {
             context.error = false;
-            this.userWeather = response.data;
+            context.success = true;
+            context.zipcode = null;
+            this.getUserWeather({error:false});
         }, response => {
             context.error = true;
         })
@@ -20,7 +22,6 @@ export default {
         Vue.http.get(
             'api/weather'
         ).then(response => {
-            context.error = false;
             this.userWeather = response.body.data;
         }, response => {
             context.error = true;
