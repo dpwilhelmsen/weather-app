@@ -11,7 +11,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/tether.min.css') }}">
+    <link href="{{ asset('css/tether.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/weather-icons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/weather-icons-wind.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style rel="stylesheet">
@@ -26,10 +28,6 @@
             margin-top: 1rem;
             margin-bottom: 2.5rem;
         }
-
-        .jumbotron {
-            text-align: center;
-        }
     </style>
 
     <!-- Scripts -->
@@ -40,9 +38,7 @@
     </script>
 </head>
 <body>
-<div class="container">
-    <div id="app"></div>
-</div>
+<div id="app"></div>
 <!-- Scripts -->
 <script src="{{ asset('js/vendor.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>

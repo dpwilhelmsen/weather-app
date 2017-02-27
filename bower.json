@@ -2,6 +2,7 @@
   "name": "weather-app",
   "dependencies": {
     "MDBootstrap": "^4.3.0",
-    "bootstrap": "v4.0.0-alpha.6"
+    "bootstrap": "v4.0.0-alpha.6",
+    "lodash": "^4.17.4"
   }
 }

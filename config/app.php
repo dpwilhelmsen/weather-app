@@ -181,7 +181,8 @@ return [
          * Third party providers
          */
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-
+        App\Providers\WeatherServiceProvider::class,
+        Kozz\Laravel\Providers\Guzzle::class,
     ],
 
     /*
@@ -233,7 +234,7 @@ return [
 
         // Custom Aliases
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-
+        'Guzzle' => Kozz\Laravel\Facades\Guzzle::class
     ],
 
 ];

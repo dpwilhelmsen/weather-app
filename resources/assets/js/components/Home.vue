@@ -1,13 +1,14 @@
 <template>
     <div>
-        <h1>Laravel 5</h1>
         <add-zip v-if="auth.user.authenticated"></add-zip>
+        <weather-cards v-if="auth.user.authenticated"></weather-cards>
     </div>
 </template>
 
 <script>
     import auth from '../auth.js'
     import AddZip from './AddZip.vue';
+    import WeatherCards from './WeatherCards.vue';
 
     export default {
         data() {
@@ -18,7 +19,8 @@
         methods: {
         },
         components: {
-            AddZip
+            AddZip,
+            WeatherCards
         }
     }
 </script>

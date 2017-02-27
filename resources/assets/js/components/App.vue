@@ -38,7 +38,9 @@
 
         </header>
         <main>
-            <router-view></router-view>
+            <div class="container">
+                <router-view></router-view>
+            </div>
         </main>
     </div>
 </template>

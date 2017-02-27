@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 60);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -427,6 +427,134 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_App_vue__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_App_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Home_vue__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Home_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Register_vue__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Register_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Register_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Login_vue__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Login_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AddZip_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AddZip_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_AddZip_vue__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "router", function() { return router; });
+__webpack_require__(34);
+var VueRouter = __webpack_require__(57);
+var VueResource = __webpack_require__(56);
+
+
+
+
+
+
+
+Vue.use(VueRouter);
+Vue.use(VueResource);
+
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.getElementsByName('csrf-token')[0].getAttribute('content');
+Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
+Vue.http.options.root = 'http://weather.app';
+
+/* harmony default export */ __webpack_exports__["default"] = Vue;
+
+var router = new VueRouter({
+    routes: [{
+        path: '/',
+        name: 'home',
+        component: __WEBPACK_IMPORTED_MODULE_1__components_Home_vue___default.a
+    }, {
+        path: '/register',
+        name: 'register',
+        component: __WEBPACK_IMPORTED_MODULE_2__components_Register_vue___default.a
+    }, {
+        path: '/login',
+        name: 'login',
+        component: __WEBPACK_IMPORTED_MODULE_3__components_Login_vue___default.a
+    }]
+});
+
+new Vue({
+    el: '#app',
+    router: router,
+    render: function render(app) {
+        return app(__WEBPACK_IMPORTED_MODULE_0__components_App_vue___default.a);
+    }
+});
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(2);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = {
+    user: {
+        authenticated: false,
+        profile: null
+    },
+    check: function check() {
+        var _this = this;
+
+        if (localStorage.getItem('id_token') !== null) {
+            __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.get('api/user').then(function (response) {
+                _this.user.authenticated = true;
+                _this.user.profile = response.data.data;
+            });
+        }
+    },
+    register: function register(context, name, email, password) {
+        __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.post('api/register', {
+            name: name,
+            email: email,
+            password: password
+        }).then(function (response) {
+            context.success = true;
+        }, function (response) {
+            context.response = response.data;
+            context.error = true;
+        });
+    },
+    login: function login(context, email, password) {
+        var _this2 = this;
+
+        __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.post('api/login', {
+            email: email,
+            password: password
+        }).then(function (response) {
+            context.error = false;
+            localStorage.setItem('id_token', response.data.meta.token);
+            __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
+
+            _this2.user.authenticated = true;
+            _this2.user.profile = response.data.data;
+
+            __WEBPACK_IMPORTED_MODULE_0__app_js__["router"].push({
+                name: 'home'
+            });
+        }, function (response) {
+            context.error = true;
+        });
+    },
+    logout: function logout() {
+        localStorage.removeItem('id_token');
+        this.user.authenticated = false;
+        this.user.profile = null;
+
+        __WEBPACK_IMPORTED_MODULE_0__app_js__["router"].push({
+            name: 'home'
+        });
+    }
+};
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -612,74 +740,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_App_vue__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_App_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Home_vue__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Home_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Register_vue__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Register_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Register_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Login_vue__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Login_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AddZip_vue__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_AddZip_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_AddZip_vue__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "router", function() { return router; });
-__webpack_require__(32);
-var VueRouter = __webpack_require__(50);
-var VueResource = __webpack_require__(49);
-
-
-
-
-
-
-
-Vue.use(VueRouter);
-Vue.use(VueResource);
-
-Vue.http.headers.common['X-CSRF-TOKEN'] = document.getElementsByName('csrf-token')[0].getAttribute('content');
-Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
-Vue.http.options.root = 'http://weather.app';
-
-/* harmony default export */ __webpack_exports__["default"] = Vue;
-
-var router = new VueRouter({
-    routes: [{
-        path: '/',
-        name: 'home',
-        component: __WEBPACK_IMPORTED_MODULE_1__components_Home_vue___default.a
-    }, {
-        path: '/register',
-        name: 'register',
-        component: __WEBPACK_IMPORTED_MODULE_2__components_Register_vue___default.a
-    }, {
-        path: '/login',
-        name: 'login',
-        component: __WEBPACK_IMPORTED_MODULE_3__components_Login_vue___default.a
-    }]
-});
-
-new Vue({
-    el: '#app',
-    router: router,
-    render: function render(app) {
-        return app(__WEBPACK_IMPORTED_MODULE_0__components_App_vue___default.a);
-    }
-});
-
-/***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(29);
+var normalizeHeaderName = __webpack_require__(31);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -770,75 +838,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(3);
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = {
-    user: {
-        authenticated: false,
-        profile: null
-    },
-    check: function check() {
-        var _this = this;
-
-        if (localStorage.getItem('id_token') !== null) {
-            __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.get('api/user').then(function (response) {
-                _this.user.authenticated = true;
-                _this.user.profile = response.data.data;
-            });
-        }
-    },
-    register: function register(context, name, email, password) {
-        __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.post('api/register', {
-            name: name,
-            email: email,
-            password: password
-        }).then(function (response) {
-            context.success = true;
-        }, function (response) {
-            context.response = response.data;
-            context.error = true;
-        });
-    },
-    login: function login(context, email, password) {
-        var _this2 = this;
-
-        __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.post('api/login', {
-            email: email,
-            password: password
-        }).then(function (response) {
-            context.error = false;
-            localStorage.setItem('id_token', response.data.meta.token);
-            __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
-
-            _this2.user.authenticated = true;
-            _this2.user.profile = response.data.data;
-
-            __WEBPACK_IMPORTED_MODULE_0__app_js__["router"].push({
-                name: 'home'
-            });
-        }, function (response) {
-            context.error = true;
-        });
-    },
-    logout: function logout() {
-        localStorage.removeItem('id_token');
-        this.user.authenticated = false;
-        this.user.profile = null;
-
-        __WEBPACK_IMPORTED_MODULE_0__app_js__["router"].push({
-            name: 'home'
-        });
-    }
-};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 /* 6 */
@@ -848,12 +848,12 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(21);
-var buildURL = __webpack_require__(24);
-var parseHeaders = __webpack_require__(30);
-var isURLSameOrigin = __webpack_require__(28);
+var settle = __webpack_require__(23);
+var buildURL = __webpack_require__(26);
+var parseHeaders = __webpack_require__(32);
+var isURLSameOrigin = __webpack_require__(30);
 var createError = __webpack_require__(9);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(23);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(25);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -949,7 +949,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(26);
+      var cookies = __webpack_require__(28);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1023,7 +1023,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 /* 7 */
@@ -1070,7 +1070,7 @@ module.exports = function isCancel(value) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(20);
+var enhanceError = __webpack_require__(22);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -1107,6 +1107,41 @@ module.exports = function bind(fn, thisArg) {
 
 /***/ }),
 /* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(2);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = {
+    userWeather: [],
+    addZip: function addZip(context, zipcode) {
+        var _this = this;
+
+        __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.post('api/zipcode', {
+            zipcode: zipcode
+        }).then(function (response) {
+            context.error = false;
+            _this.userWeather = response.data;
+        }, function (response) {
+            context.error = true;
+        });
+    },
+    getUserWeather: function getUserWeather(context) {
+        var _this2 = this;
+
+        __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.get('api/weather').then(function (response) {
+            context.error = false;
+            _this2.userWeather = response.body.data;
+        }, function (response) {
+            context.error = true;
+        });
+    }
+};
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -11333,7 +11368,41 @@ return jQuery;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(49),
+  /* template */
+  __webpack_require__(42),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/daniel.wilhelmsen/Code/Personal/CodeTests/weather-app/resources/assets/js/components/AddZip.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AddZip.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-095cc030", Component.options)
+  } else {
+    hotAPI.reload("data-v-095cc030", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports) {
 
 var g;
@@ -11360,19 +11429,19 @@ module.exports = g;
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15);
+module.exports = __webpack_require__(17);
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11380,8 +11449,8 @@ module.exports = __webpack_require__(15);
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(10);
-var Axios = __webpack_require__(17);
-var defaults = __webpack_require__(4);
+var Axios = __webpack_require__(19);
+var defaults = __webpack_require__(5);
 
 /**
  * Create an instance of Axios
@@ -11415,14 +11484,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(7);
-axios.CancelToken = __webpack_require__(16);
+axios.CancelToken = __webpack_require__(18);
 axios.isCancel = __webpack_require__(8);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(31);
+axios.spread = __webpack_require__(33);
 
 module.exports = axios;
 
@@ -11431,7 +11500,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11495,18 +11564,18 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(5);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(18);
-var dispatchRequest = __webpack_require__(19);
-var isAbsoluteURL = __webpack_require__(27);
-var combineURLs = __webpack_require__(25);
+var InterceptorManager = __webpack_require__(20);
+var dispatchRequest = __webpack_require__(21);
+var isAbsoluteURL = __webpack_require__(29);
+var combineURLs = __webpack_require__(27);
 
 /**
  * Create a new instance of Axios
@@ -11587,7 +11656,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11646,16 +11715,16 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(22);
+var transformData = __webpack_require__(24);
 var isCancel = __webpack_require__(8);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(5);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -11732,7 +11801,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11758,7 +11827,7 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11790,7 +11859,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11817,7 +11886,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11860,7 +11929,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11935,7 +12004,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11954,7 +12023,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12014,7 +12083,7 @@ module.exports = (
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12035,7 +12104,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12110,7 +12179,7 @@ module.exports = (
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12129,7 +12198,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12173,7 +12242,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12207,11 +12276,11 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(48);
+window._ = __webpack_require__(55);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12219,9 +12288,9 @@ window._ = __webpack_require__(48);
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = __webpack_require__(11);
+window.$ = window.jQuery = __webpack_require__(12);
 
-__webpack_require__(33);
+__webpack_require__(36);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12229,7 +12298,7 @@ __webpack_require__(33);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(51);
+window.Vue = __webpack_require__(58);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12237,7 +12306,7 @@ window.Vue = __webpack_require__(51);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(14);
+window.axios = __webpack_require__(16);
 
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
@@ -12258,7 +12327,307 @@ window.axios.defaults.headers.common = {
 // });
 
 /***/ }),
-/* 33 */
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = {
+  "200": {
+    "label": "thunderstorm with light rain",
+    "icon": "storm-showers"
+  },
+  "201": {
+    "label": "thunderstorm with rain",
+    "icon": "storm-showers"
+  },
+  "202": {
+    "label": "thunderstorm with heavy rain",
+    "icon": "storm-showers"
+  },
+  "210": {
+    "label": "light thunderstorm",
+    "icon": "storm-showers"
+  },
+  "211": {
+    "label": "thunderstorm",
+    "icon": "thunderstorm"
+  },
+  "212": {
+    "label": "heavy thunderstorm",
+    "icon": "thunderstorm"
+  },
+  "221": {
+    "label": "ragged thunderstorm",
+    "icon": "thunderstorm"
+  },
+  "230": {
+    "label": "thunderstorm with light drizzle",
+    "icon": "storm-showers"
+  },
+  "231": {
+    "label": "thunderstorm with drizzle",
+    "icon": "storm-showers"
+  },
+  "232": {
+    "label": "thunderstorm with heavy drizzle",
+    "icon": "storm-showers"
+  },
+  "300": {
+    "label": "light intensity drizzle",
+    "icon": "sprinkle"
+  },
+  "301": {
+    "label": "drizzle",
+    "icon": "sprinkle"
+  },
+  "302": {
+    "label": "heavy intensity drizzle",
+    "icon": "sprinkle"
+  },
+  "310": {
+    "label": "light intensity drizzle rain",
+    "icon": "sprinkle"
+  },
+  "311": {
+    "label": "drizzle rain",
+    "icon": "sprinkle"
+  },
+  "312": {
+    "label": "heavy intensity drizzle rain",
+    "icon": "sprinkle"
+  },
+  "313": {
+    "label": "shower rain and drizzle",
+    "icon": "sprinkle"
+  },
+  "314": {
+    "label": "heavy shower rain and drizzle",
+    "icon": "sprinkle"
+  },
+  "321": {
+    "label": "shower drizzle",
+    "icon": "sprinkle"
+  },
+  "500": {
+    "label": "light rain",
+    "icon": "rain"
+  },
+  "501": {
+    "label": "moderate rain",
+    "icon": "rain"
+  },
+  "502": {
+    "label": "heavy intensity rain",
+    "icon": "rain"
+  },
+  "503": {
+    "label": "very heavy rain",
+    "icon": "rain"
+  },
+  "504": {
+    "label": "extreme rain",
+    "icon": "rain"
+  },
+  "511": {
+    "label": "freezing rain",
+    "icon": "rain-mix"
+  },
+  "520": {
+    "label": "light intensity shower rain",
+    "icon": "showers"
+  },
+  "521": {
+    "label": "shower rain",
+    "icon": "showers"
+  },
+  "522": {
+    "label": "heavy intensity shower rain",
+    "icon": "showers"
+  },
+  "531": {
+    "label": "ragged shower rain",
+    "icon": "showers"
+  },
+  "600": {
+    "label": "light snow",
+    "icon": "snow"
+  },
+  "601": {
+    "label": "snow",
+    "icon": "snow"
+  },
+  "602": {
+    "label": "heavy snow",
+    "icon": "snow"
+  },
+  "611": {
+    "label": "sleet",
+    "icon": "sleet"
+  },
+  "612": {
+    "label": "shower sleet",
+    "icon": "sleet"
+  },
+  "615": {
+    "label": "light rain and snow",
+    "icon": "rain-mix"
+  },
+  "616": {
+    "label": "rain and snow",
+    "icon": "rain-mix"
+  },
+  "620": {
+    "label": "light shower snow",
+    "icon": "rain-mix"
+  },
+  "621": {
+    "label": "shower snow",
+    "icon": "rain-mix"
+  },
+  "622": {
+    "label": "heavy shower snow",
+    "icon": "rain-mix"
+  },
+  "701": {
+    "label": "mist",
+    "icon": "sprinkle"
+  },
+  "711": {
+    "label": "smoke",
+    "icon": "smoke"
+  },
+  "721": {
+    "label": "haze",
+    "icon": "day-haze"
+  },
+  "731": {
+    "label": "sand, dust whirls",
+    "icon": "cloudy-gusts"
+  },
+  "741": {
+    "label": "fog",
+    "icon": "fog"
+  },
+  "751": {
+    "label": "sand",
+    "icon": "cloudy-gusts"
+  },
+  "761": {
+    "label": "dust",
+    "icon": "dust"
+  },
+  "762": {
+    "label": "volcanic ash",
+    "icon": "smog"
+  },
+  "771": {
+    "label": "squalls",
+    "icon": "day-windy"
+  },
+  "781": {
+    "label": "tornado",
+    "icon": "tornado"
+  },
+  "800": {
+    "label": "clear sky",
+    "icon": "sunny"
+  },
+  "801": {
+    "label": "few clouds",
+    "icon": "cloudy"
+  },
+  "802": {
+    "label": "scattered clouds",
+    "icon": "cloudy"
+  },
+  "803": {
+    "label": "broken clouds",
+    "icon": "cloudy"
+  },
+  "804": {
+    "label": "overcast clouds",
+    "icon": "cloudy"
+  },
+  "900": {
+    "label": "tornado",
+    "icon": "tornado"
+  },
+  "901": {
+    "label": "tropical storm",
+    "icon": "hurricane"
+  },
+  "902": {
+    "label": "hurricane",
+    "icon": "hurricane"
+  },
+  "903": {
+    "label": "cold",
+    "icon": "snowflake-cold"
+  },
+  "904": {
+    "label": "hot",
+    "icon": "hot"
+  },
+  "905": {
+    "label": "windy",
+    "icon": "windy"
+  },
+  "906": {
+    "label": "hail",
+    "icon": "hail"
+  },
+  "951": {
+    "label": "calm",
+    "icon": "sunny"
+  },
+  "952": {
+    "label": "light breeze",
+    "icon": "cloudy-gusts"
+  },
+  "953": {
+    "label": "gentle breeze",
+    "icon": "cloudy-gusts"
+  },
+  "954": {
+    "label": "moderate breeze",
+    "icon": "cloudy-gusts"
+  },
+  "955": {
+    "label": "fresh breeze",
+    "icon": "cloudy-gusts"
+  },
+  "956": {
+    "label": "strong breeze",
+    "icon": "cloudy-gusts"
+  },
+  "957": {
+    "label": "high wind, near gale",
+    "icon": "cloudy-gusts"
+  },
+  "958": {
+    "label": "gale",
+    "icon": "cloudy-gusts"
+  },
+  "959": {
+    "label": "severe gale",
+    "icon": "cloudy-gusts"
+  },
+  "960": {
+    "label": "storm",
+    "icon": "thunderstorm"
+  },
+  "961": {
+    "label": "violent storm",
+    "icon": "thunderstorm"
+  },
+  "962": {
+    "label": "hurricane",
+    "icon": "cloudy-gusts"
+  }
+};
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -14639,17 +15008,17 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(45),
+  __webpack_require__(50),
   /* template */
-  __webpack_require__(40),
+  __webpack_require__(44),
   /* scopeId */
   null,
   /* cssModules */
@@ -14676,15 +15045,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 35 */,
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(92),
+  __webpack_require__(51),
   /* template */
-  __webpack_require__(42),
+  __webpack_require__(46),
   /* scopeId */
   null,
   /* cssModules */
@@ -14711,14 +15079,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(46),
+  __webpack_require__(52),
   /* template */
-  __webpack_require__(41),
+  __webpack_require__(45),
   /* scopeId */
   null,
   /* cssModules */
@@ -14745,14 +15113,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(47),
+  __webpack_require__(53),
   /* template */
-  __webpack_require__(39),
+  __webpack_require__(43),
   /* scopeId */
   null,
   /* cssModules */
@@ -14779,7 +15147,139 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(54),
+  /* template */
+  __webpack_require__(47),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/daniel.wilhelmsen/Code/Personal/CodeTests/weather-app/resources/assets/js/components/WeatherCards.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] WeatherCards.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a8d4c082", Component.options)
+  } else {
+    hotAPI.reload("data-v-a8d4c082", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "jumbotron"
+  }, [_c('h2', [_vm._v("Add zip codes")]), _vm._v(" "), (_vm.error) ? _c('div', {
+    staticClass: "alert alert-danger alert-dismissible fade show",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('p', [_vm._v("Couldn't add that zip code.")])]) : _vm._e(), _vm._v(" "), (_vm.success) ? _c('div', {
+    staticClass: "alert alert-success alert-dismissible fade show",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('p', [_vm._v("Zip Code Added.")])]) : _vm._e(), _vm._v(" "), _c('form', {
+    attrs: {
+      "autocomplete": "off"
+    },
+    on: {
+      "submit": _vm.addZip
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "zipcode"
+    }
+  }, [_vm._v("Zip Code")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.zipcode),
+      expression: "zipcode"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "zipcode",
+      "id": "zipcode",
+      "placeholder": "",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.zipcode)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.zipcode = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Add Zip")])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "alert",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "alert",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-095cc030", module.exports)
+  }
+}
+
+/***/ }),
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14910,7 +15410,7 @@ if (false) {
 }
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14975,7 +15475,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.logout
     }
-  }, [_vm._v("Log out")])]) : _vm._e()], 1)])])])]), _vm._v(" "), _c('main', [_c('router-view')], 1)])
+  }, [_vm._v("Log out")])]) : _vm._e()], 1)])])])]), _vm._v(" "), _c('main', [_c('div', {
+    staticClass: "container"
+  }, [_c('router-view')], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
     staticClass: "navbar-toggler navbar-toggler-right",
@@ -15007,7 +15509,7 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -15037,7 +15539,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "email",
       "id": "email",
-      "placeholder": "gavin.belson@hooli.com",
+      "placeholder": "email@example.com",
       "required": ""
     },
     domProps: {
@@ -15093,11 +15595,11 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h1', [_vm._v("Laravel 5")]), _vm._v(" "), (_vm.auth.user.authenticated) ? _c('add-zip') : _vm._e()], 1)
+  return _c('div', [(_vm.auth.user.authenticated) ? _c('add-zip') : _vm._e(), _vm._v(" "), (_vm.auth.user.authenticated) ? _c('weather-cards') : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -15108,8 +15610,59 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */,
-/* 44 */
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('hr', {
+    staticClass: "extra-margins"
+  }), _vm._v(" "), _c('h2', [_vm._v("Current weather for your zip codes")]), _c('br'), _c('br'), _vm._v(" "), _vm._l((_vm.chunkedItems), function(chunk) {
+    return _c('div', {
+      staticClass: "row"
+    }, _vm._l((chunk), function(info) {
+      return _c('div', {
+        staticClass: "col-lg-4"
+      }, [_c('div', {
+        staticClass: "card"
+      }, [_c('div', {
+        staticClass: "view overlay hm-white-slight"
+      }, [_c('span', {
+        staticClass: "weather-icon-wrap",
+        domProps: {
+          "innerHTML": _vm._s(_vm.getIcon(info.weather[0].id))
+        }
+      }), _vm._v(" "), _vm._m(0, true)]), _vm._v(" "), _c('div', {
+        staticClass: "card-block"
+      }, [_c('h4', {
+        staticClass: "card-title"
+      }, [_vm._v(_vm._s(info.name) + " - " + _vm._s(info.zipcode))]), _vm._v(" "), _c('p', {
+        staticClass: "card-text"
+      }, [_c('span', {
+        staticStyle: {
+          "text-transform": "capitalize"
+        }
+      }, [_vm._v(_vm._s(info.weather[0].description))]), _c('br'), _c('br'), _vm._v(" "), _c('strong', [_vm._v("Current Temp:")]), _vm._v(" " + _vm._s(info.main.temp) + "° F"), _c('br'), _vm._v(" "), _c('strong', [_vm._v("Humidity:")]), _vm._v(" " + _vm._s(info.main.humidity) + " %"), _c('br'), _vm._v(" "), _c('strong', [_vm._v("Wind:")]), _vm._v(" " + _vm._s(info.wind.speed) + " MPH"), _c('br')])])])])
+    }))
+  })], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('div', {
+    staticClass: "mask"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-a8d4c082", module.exports)
+  }
+}
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -15137,12 +15690,70 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__weather_js__ = __webpack_require__(11);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            zipcode: null,
+            error: false,
+            success: false
+        };
+    },
+
+    methods: {
+        addZip: function addZip(event) {
+            event.preventDefault();
+            __WEBPACK_IMPORTED_MODULE_0__weather_js__["a" /* default */].addZip(this, this.zipcode);
+        }
+    }
+};
+
+/***/ }),
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_js__ = __webpack_require__(3);
+//
+//
 //
 //
 //
@@ -15211,12 +15822,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 46 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddZip_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddZip_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AddZip_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__WeatherCards_vue__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__WeatherCards_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__WeatherCards_vue__);
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            auth: __WEBPACK_IMPORTED_MODULE_0__auth_js__["a" /* default */]
+        };
+    },
+
+    methods: {},
+    components: {
+        AddZip: __WEBPACK_IMPORTED_MODULE_1__AddZip_vue___default.a,
+        WeatherCards: __WEBPACK_IMPORTED_MODULE_2__WeatherCards_vue___default.a
+    }
+};
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_js__ = __webpack_require__(3);
 //
 //
 //
@@ -15256,12 +15904,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 47 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_js__ = __webpack_require__(3);
 //
 //
 //
@@ -15315,7 +15963,95 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 48 */
+/* 54 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__weather_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_icons_js__ = __webpack_require__(35);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            weather: __WEBPACK_IMPORTED_MODULE_0__weather_js__["a" /* default */],
+            error: false,
+            success: false
+        };
+    },
+
+
+    computed: {
+        chunkedItems: function chunkedItems() {
+            return _.chunk(this.weather.userWeather, 3);
+        }
+    },
+
+    methods: {
+        getIcon: function getIcon(code) {
+            var prefix = 'wi wi-';
+            var icon = __WEBPACK_IMPORTED_MODULE_1__data_icons_js__["a" /* default */][code].icon;
+
+            // If we are not in the ranges mentioned above, add a day/night prefix.
+            if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
+                icon = 'day-' + icon;
+            }
+
+            // Finally tack on the prefix.
+            return "<i class='" + prefix + icon + "'></i>";
+        }
+    },
+
+    mounted: function mounted() {
+        this.$nextTick(function () {
+            __WEBPACK_IMPORTED_MODULE_0__weather_js__["a" /* default */].getUserWeather(this);
+        });
+    }
+};
+
+/***/ }),
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32404,10 +33140,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12), __webpack_require__(44)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(48)(module)))
 
 /***/ }),
-/* 49 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33485,7 +34221,7 @@ var xhrClient = function (request) {
 
 var nodeClient = function (request) {
 
-    var client = __webpack_require__(52);
+    var client = __webpack_require__(59);
 
     return new PromiseObj(function (resolve) {
 
@@ -33939,7 +34675,7 @@ module.exports = plugin;
 
 
 /***/ }),
-/* 50 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36222,10 +36958,10 @@ if (inBrowser && window.Vue) {
 
 module.exports = VueRouter;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 51 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45407,252 +46143,21 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(14)))
 
 /***/ }),
-/* 52 */
+/* 59 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 53 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(3);
-module.exports = __webpack_require__(13);
+__webpack_require__(2);
+module.exports = __webpack_require__(15);
 
-
-/***/ }),
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(3);
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = {
-    addZip: function addZip(context, zipcode) {
-        __WEBPACK_IMPORTED_MODULE_0__app_js__["default"].http.post('api/zipcode', {
-            zipcode: zipcode
-        }).then(function (response) {
-            context.error = false;
-            context.success = true;
-            context.zipcode = null;
-            __WEBPACK_IMPORTED_MODULE_0__app_js__["router"].push({
-                name: 'home'
-            });
-        }, function (response) {
-            context.error = true;
-        });
-    }
-};
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(91),
-  /* template */
-  __webpack_require__(90),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/daniel.wilhelmsen/Code/Personal/CodeTests/weather-app/resources/assets/js/components/AddZip.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] AddZip.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-095cc030", Component.options)
-  } else {
-    hotAPI.reload("data-v-095cc030", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 90 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.error) ? _c('div', {
-    staticClass: "alert alert-danger"
-  }, [_c('p', [_vm._v("Couldn't add that zip code.")])]) : _vm._e(), _vm._v(" "), (_vm.success) ? _c('div', {
-    staticClass: "alert alert-success"
-  }, [_c('p', [_vm._v("Zip Code Added.")])]) : _vm._e(), _vm._v(" "), _c('form', {
-    attrs: {
-      "autocomplete": "off"
-    },
-    on: {
-      "submit": _vm.addZip
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "zipcode"
-    }
-  }, [_vm._v("Zip Code")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.zipcode),
-      expression: "zipcode"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "type": "zipcode",
-      "id": "zipcode",
-      "placeholder": "",
-      "required": ""
-    },
-    domProps: {
-      "value": (_vm.zipcode)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.zipcode = $event.target.value
-      }
-    }
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "submit"
-    }
-  }, [_vm._v("Add Zip")])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-095cc030", module.exports)
-  }
-}
-
-/***/ }),
-/* 91 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__weather_js__ = __webpack_require__(88);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    data: function data() {
-        return {
-            zipcode: null,
-            error: false,
-            success: false
-        };
-    },
-
-    methods: {
-        addZip: function addZip(event) {
-            event.preventDefault();
-            __WEBPACK_IMPORTED_MODULE_0__weather_js__["a" /* default */].addZip(this, this.zipcode);
-        }
-    }
-};
-
-/***/ }),
-/* 92 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddZip_vue__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddZip_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AddZip_vue__);
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    data: function data() {
-        return {
-            auth: __WEBPACK_IMPORTED_MODULE_0__auth_js__["a" /* default */]
-        };
-    },
-
-    methods: {},
-    components: {
-        AddZip: __WEBPACK_IMPORTED_MODULE_1__AddZip_vue___default.a
-    }
-};
 
 /***/ })
 /******/ ]);

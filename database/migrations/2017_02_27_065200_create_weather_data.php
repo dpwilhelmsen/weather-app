@@ -16,7 +16,7 @@ class CreateWeatherData extends Migration
         Schema::create('weather_data', function (Blueprint $table) {
             $table->increments('id');
             $table->text('details');
-            $table->integer('zipcode_id')->unsigned();
+            $table->integer('zipcode_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('zipcode_id')->references('id')->on('zipcodes');

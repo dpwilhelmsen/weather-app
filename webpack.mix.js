@@ -16,7 +16,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
         'resources/assets/libs/jquery/dist/jquery.min.js',
         'resources/assets/libs/tether/dist/js/tether.min.js',
         'resources/assets/libs/bootstrap/dist/js/bootstrap.min.js',
-        'resources/assets/libs/MDBootstrap/js/mdb.min.js'
+        'resources/assets/libs/MDBootstrap/js/mdb.min.js',
+        'resources/assets/libs/lodash/dist/lodash.min.js'
         ],
     'public/js/vendor.js')
     .sass('resources/assets/sass/app.scss', 'public/css')

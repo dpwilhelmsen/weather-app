@@ -6,7 +6,7 @@
         <form autocomplete="off" v-on:submit="login">
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control" placeholder="gavin.belson@hooli.com" v-model="email" required>
+                <input type="email" id="email" class="form-control" placeholder="email@example.com" v-model="email" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

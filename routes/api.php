@@ -30,6 +30,9 @@ Route::group(['middleware' => ['api']], function () {
         Route::post('/zipcode', [
             'uses' => 'Api\ZipCodeController@create',
         ]);
+        Route::get('/weather', [
+            'uses' => 'Api\WeatherController@index',
+        ]);
     });
 
 });

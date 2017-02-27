@@ -10,3 +10,15 @@
 
 // MDBootstrap
 @import "../libs/MDBootstrap/sass/mdb";
+
+
+.weather-icon-wrap {
+  text-align: center;
+  display: block;
+  font-size: 5em;
+  padding-top: 30px;
+  background-color: #0c699e;
+  background-image: url('/images/bkg.png');
+  color: #fff;
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+}
