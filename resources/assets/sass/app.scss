@@ -6,4 +6,7 @@
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../libs/bootstrap/scss/bootstrap";
+
+// MDBootstrap
+@import "../libs/MDBootstrap/sass/mdb";
