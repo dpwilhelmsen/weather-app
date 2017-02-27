@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The zip codes the user follows.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function zipcodes()
+    {
+        return $this->belongsToMany('App\Zipcode');
+    }
 }

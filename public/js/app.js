@@ -15257,6 +15257,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.$nextTick(function () {
             __WEBPACK_IMPORTED_MODULE_0__auth_js__["a" /* default */].check();
+            debugger;
         });
     }
 };

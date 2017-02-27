@@ -25,7 +25,7 @@ Route::group(['middleware' => ['api']], function () {
 
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('/user', [
-            'uses' => 'Api\UserController@index',
+            'uses' => 'Api\UserController@show',
         ]);
     });
 

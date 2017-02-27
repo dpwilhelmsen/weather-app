@@ -17,7 +17,6 @@ class UserController extends Controller
     public function show(Request $request)
     {
         $data = [];
-        dd($request->user()->zipcodes);
         $data['name'] = $request->user()->name;
         $data['email'] = $request->user()->email;
         return response()->json([
