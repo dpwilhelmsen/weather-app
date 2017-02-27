@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="jumbotron">
         <div class="alert alert-danger" v-if="error && !success">
             <p>There was an error, unable to complete registration.</p>
         </div>
@@ -14,7 +14,7 @@
             </div>
             <div class="form-group" v-bind:class="{ 'has-error': error && response.email }">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control" placeholder="gavin.belson@hooli.com" v-model="email" required>
+                <input type="email" id="email" class="form-control" placeholder="email@example.com" v-model="email" required>
                 <span class="help-block" v-if="error && response.email">{{ response.email }}</span>
             </div>
             <div class="form-group" v-bind:class="{ 'has-error': error && response.password }">

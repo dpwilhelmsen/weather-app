@@ -1,5 +1,9 @@
 <template>
     <div>
+        <div class="text-center" v-if="!auth.user.authenticated">
+            <h1>Welcome to Weather App</h1>
+            <p>Please sign in to start tracking weather</p>
+        </div>
         <add-zip v-if="auth.user.authenticated"></add-zip>
         <weather-cards v-if="auth.user.authenticated"></weather-cards>
     </div>

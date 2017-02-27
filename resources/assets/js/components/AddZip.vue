@@ -18,7 +18,7 @@
                 <form autocomplete="off" v-on:submit="addZip">
                     <div class="form-group">
                         <label for="zipcode">Zip Code</label>
-                        <input type="zipcode" id="zipcode" class="form-control" placeholder="" v-model="zipcode" required>
+                        <input type="text" id="zipcode" class="form-control" placeholder="" v-model="zipcode" required>
                     </div>
                     <button type="submit" class="btn btn-default">Add Zip</button>
                 </form>
@@ -40,6 +40,7 @@
         },
         methods: {
             addZip(event) {
+                // Could use some proper validation to ensure zip code is actually zip code.
                 event.preventDefault();
                 weather.addZip(this, this.zipcode);
             }

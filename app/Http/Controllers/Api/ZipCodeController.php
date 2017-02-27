@@ -15,7 +15,7 @@ use App\Http\Requests;
 
 class ZipCodeController extends Controller
 {
-    public function create(Request $request)
+    public function create(Requests\ZipcodeFormRequest $request)
     {
         if(!$request->user()) {
             return response()->json([
@@ -25,6 +25,7 @@ class ZipCodeController extends Controller
 
         $zipcodeInput = $request->input('zipcode');
 
+        // This could probably be moved to a repository.
         $zipcode = Zipcode::firstOrCreate(['zipcode' => $zipcodeInput]);
         $request->user()->zipcodes()->attach($zipcode->id);
 

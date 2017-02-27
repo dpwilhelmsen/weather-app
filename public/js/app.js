@@ -15223,7 +15223,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "type": "zipcode",
+      "type": "text",
       "id": "zipcode",
       "placeholder": "",
       "required": ""
@@ -15283,7 +15283,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.error && !_vm.success) ? _c('div', {
+  return _c('div', {
+    staticClass: "jumbotron"
+  }, [(_vm.error && !_vm.success) ? _c('div', {
     staticClass: "alert alert-danger"
   }, [_c('p', [_vm._v("There was an error, unable to complete registration.")])]) : _vm._e(), _vm._v(" "), (_vm.success) ? _c('div', {
     staticClass: "alert alert-success"
@@ -15347,7 +15349,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "email",
       "id": "email",
-      "placeholder": "gavin.belson@hooli.com",
+      "placeholder": "email@example.com",
       "required": ""
     },
     domProps: {
@@ -15513,7 +15515,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.error) ? _c('div', {
+  return _c('div', {
+    staticClass: "jumbotron"
+  }, [(_vm.error) ? _c('div', {
     staticClass: "alert alert-danger"
   }, [_c('p', [_vm._v("There was an error, unable to sign in with those credentials.")])]) : _vm._e(), _vm._v(" "), _c('form', {
     attrs: {
@@ -15599,7 +15603,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.auth.user.authenticated) ? _c('add-zip') : _vm._e(), _vm._v(" "), (_vm.auth.user.authenticated) ? _c('weather-cards') : _vm._e()], 1)
+  return _c('div', [(!_vm.auth.user.authenticated) ? _c('div', {
+    staticClass: "text-center"
+  }, [_c('h1', [_vm._v("Welcome to Weather App")]), _vm._v(" "), _c('p', [_vm._v("Please sign in to start tracking weather")])]) : _vm._e(), _vm._v(" "), (_vm.auth.user.authenticated) ? _c('add-zip') : _vm._e(), _vm._v(" "), (_vm.auth.user.authenticated) ? _c('weather-cards') : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -15739,6 +15745,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         addZip: function addZip(event) {
+            // Could use some proper validation to ensure zip code is actually zip code.
             event.preventDefault();
             __WEBPACK_IMPORTED_MODULE_0__weather_js__["a" /* default */].addZip(this, this.zipcode);
         }
@@ -15832,6 +15839,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddZip_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AddZip_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__WeatherCards_vue__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__WeatherCards_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__WeatherCards_vue__);
+//
+//
+//
+//
 //
 //
 //
