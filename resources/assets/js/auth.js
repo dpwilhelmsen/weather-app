@@ -47,7 +47,7 @@ export default {
             this.user.profile = response.data.data
 
             router.push({
-                name: 'dashboard'
+                name: 'home'
             })
         }, response => {
             context.error = true

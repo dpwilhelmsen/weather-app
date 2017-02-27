@@ -3,10 +3,10 @@ var VueRouter = require('vue-router');
 var VueResource = require('vue-resource');
 
 import App from './components/App.vue';
-import Dashboard from './components/Dashboard.vue';
 import Home from './components/Home.vue';
 import Register from './components/Register.vue';
 import Login from './components/Login.vue';
+import AddZip from './components/AddZip.vue';
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
@@ -23,11 +23,6 @@ export var router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home
-        },
-        {
-            path: '/dashboard',
-            name: 'dashboard',
-            component: Dashboard
         },
         {
             path: '/register',

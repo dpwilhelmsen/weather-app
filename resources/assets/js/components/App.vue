@@ -60,7 +60,6 @@
         mounted: function () {
             this.$nextTick(function () {
                 auth.check()
-                debugger;
             })
         }
     }

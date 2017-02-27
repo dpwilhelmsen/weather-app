@@ -9,18 +9,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Zipcode;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
-class UserController extends Controller
+class ZipCodeController extends Controller
 {
-    public function show(Request $request)
+    public function create(Request $request)
     {
-        $data = [];
-        $data['name'] = $request->user()->name;
-        $data['email'] = $request->user()->email;
+        if(!$request->user()) {
+            return response()->json([
+                'message' => 'Not Authorized',
+            ], 401);
+        }
+
+        $zipcodeInput = $request->input('zipcode');
+
+        $zipcode = Zipcode::firstOrCreate(['zipcode' => $zipcodeInput]);
+        $request->user()->zipcodes()->attach($zipcode->id);
+
+
         return response()->json([
-            'data' => $data,
+            'success' => true,
         ]);
     }
 }

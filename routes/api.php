@@ -27,6 +27,9 @@ Route::group(['middleware' => ['api']], function () {
         Route::get('/user', [
             'uses' => 'Api\UserController@show',
         ]);
+        Route::post('/zipcode', [
+            'uses' => 'Api\ZipCodeController@create',
+        ]);
     });
 
 });
